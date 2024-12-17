@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css">
+    <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+<style>
+    .container{
+        align-items: center;
+        justify-content: center;
+    }
+    .mx-auto{
+        text-align: center;
+        margin-top: 100px;
+    }
+    #babeImage {
+            display: none;
+            width: 200px;
+            height: auto;
+            margin: 20px auto;
+            display: block;
+    }
+</style>
+<body>
+    <div id="display" class="display m-3">
+
+    </div>
+    <h5 id="babeImage">ស្វែងរកកូនតាមឈ្មោះ</h5>
+    <div class="mx-auto">
+        Name Dad :<input type="text" id="dad"></br>
+        Name Mommy :<input type="text" id="mom" class="my-2">
+        <div class="m-3">
+            <button class="btn btn-primary" onclick="parent()"> Click</button>
+            <button class="btn btn-primary" onclick="clearResult()"> Clear</button>
+        </div>
+
+        
+        <div class="container ">
+            <p id="result"></p>
+            <img id="babeImage" src="" alt="" style=" width: 200px; height: auto; "> 
+        </div>
+    </div>
+</body>
+<script>
+    function updateTime() {
+        var today = new Date();
+        var days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+        var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+
+        var dayName = days[today.getDay()];
+        var day = today.getDate();
+        var daySuffix;
+
+        // Determine the correct suffix for the day
+        if (day % 10 === 1 && day !== 11) {
+            daySuffix = 'st';
+        } else if (day % 10 === 2 && day !== 12) {
+            daySuffix = 'nd';
+        } else if (day % 10 === 3 && day !== 13) {
+            daySuffix = 'rd';
+        } else {
+            daySuffix = 'th';
+        }
+
+        var formattedDay = day + daySuffix;
+        var month = months[today.getMonth()]; // Corrected the month array access
+        var year = today.getFullYear();
+        
+        var hours = today.getHours() % 12 || 12;
+        var minutes = String(today.getMinutes()).padStart(2, '0');
+        var seconds = String(today.getSeconds()).padStart(2, '0');
+        var ampm = today.getHours() >= 12 ? 'PM' : 'AM';
+
+        document.getElementById("display").innerHTML = 
+            `${dayName}, ${formattedDay} ${month} ${year} ${hours}:${minutes}:${seconds} ${ampm}`;
+    }
+    setInterval(updateTime, 1000);
+
+    function parent(){
+        var mom = document.getElementById("mom").value;
+        var dad = document.getElementById("dad").value;
+        var babeImage = document.getElementById("babeImage");
+        let momIndexSum = 0;
+        let dadIndexSum = 0;
+        for (let i = 0; i < dad.length; i++) {
+            dadIndexSum =i+1;
+        }
+        for (let i = 0; i < mom.length; i++) {
+            momIndexSum= i+1;
+        }
+
+        var totalIndexSum = momIndexSum + dadIndexSum;
+        if(totalIndexSum %2 === 0){
+            babeImage.src = "data:image/jpeg;base64,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";
+            babeImage.style.display = "block";
+        }else{
+            babeImage.src = "https://images.unsplash.com/photo-1617331140180-e8262094733a?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTR8fGJhYnklMjBib3l8ZW58MHx8MHx8fDA%3D";
+            babeImage.style.display = "block";
+        }
+        
+        document.getElementById("result").textContent = "Total Index Sum: " + totalIndexSum;
+    }
+    function clearResult() {
+        var babeImage = document.getElementById("babeImage");
+
+            document.getElementById("result").textContent = "";
+            babeImage.style.display = "none";
+            document.getElementById("mom").value = "";
+            document.getElementById("dad").value = "";
+        }
+</script>
+
+
+</html>
+
